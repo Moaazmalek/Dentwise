@@ -8,7 +8,8 @@ import CTA from '@/components/landing/CTA'
 import Footer from '@/components/landing/Footer'
 
 
-export default function Home() {
+export default async function Home() {
+
   return (
     <div className='min-h-screen bg-background '>
       <Header/>
