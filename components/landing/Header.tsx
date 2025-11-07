@@ -1,4 +1,4 @@
-import { SignInButton, SignUpButton } from '@clerk/nextjs'
+import { SignedIn, SignedOut, SignInButton, SignOutButton, SignUpButton } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -18,7 +18,8 @@ const Header = () => {
           <a href='#' className='text-muted-foreground hover:text-foreground'>Pricing </a>
           <a href='#' className='text-muted-foreground hover:text-foreground'>About </a>
         </div>
-        <div className="flex items-center gap-3">
+       <SignedOut>
+         <div className="flex items-center gap-3">
           <SignInButton mode='modal'>
            <Button variant="ghost" size="sm">
              Login
@@ -30,6 +31,14 @@ const Header = () => {
            </Button>
           </SignUpButton>
         </div>
+       </SignedOut>
+          <SignedIn>
+            <SignOutButton >
+             <Button variant={"default"}>
+               Sign out 
+             </Button>
+            </SignOutButton>
+          </SignedIn>
       </div>
 
     </nav>
