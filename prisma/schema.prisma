@@ -35,10 +35,9 @@ model User {
 
 model Doctor {
   id         String @id @default(cuid())
-  clerkId    String @unique 
   name        String
   email      String @unique 
-  phone      String?
+  phone      String
   speciality String
   bio        String?
   imageUrl   String

@@ -14,15 +14,23 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import AddDoctorDialog from "./AddDoctorDialog";
+import EditDoctorDialog from "./EditDoctorDialog";
+import { Doctor } from "@/app/generated/prisma/client";
 
 const DoctorsManagement = () => {
   const { data: doctors = [] } = useGetDoctors();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
 
-  const handleEditDoctor = () => {};
-  const handleCloseEditDialog = () => {};
+  const handleEditDoctor = (doctor:Doctor) => {
+    setSelectedDoctor(doctor);
+    setIsEditDialogOpen(true);
+  };
+  const handleCloseEditDialog = () => {
+    setIsEditDialogOpen(false);
+    setSelectedDoctor(null);
+  };
   return (
     <>
       <Card className="mb-12">
@@ -48,9 +56,9 @@ const DoctorsManagement = () => {
           <div className="space-y-4">
             {doctors.map((doctor) => (
               <div key={doctor.id}
-              className="flex items-center justify-between p-4 bg-muted/30 rounded-xl border
+              className="flex flex-wrap items-center justify-between p-4 bg-muted/30 rounded-xl border
               border-border/50">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 flex-1">
                     <Image src={doctor.imageUrl} alt={doctor.name}
                     width={48}
                     height={48} 
@@ -93,7 +101,7 @@ const DoctorsManagement = () => {
                     size="sm"
                     variant={"outline"}
                     className="h-8 px-3"
-                    onClick={() => handleEditDoctor()}>
+                    onClick={() => handleEditDoctor(doctor)}>
                         <EditIcon className="size-4 mr-1"/>
                         Edit
                     </Button>
@@ -107,6 +115,12 @@ const DoctorsManagement = () => {
       <AddDoctorDialog
       isOpen={isAddDialogOpen}
       onClose={() => setIsAddDialogOpen(false)}
+      />
+      <EditDoctorDialog 
+      isOpen={isEditDialogOpen}
+      onClose={ handleCloseEditDialog}
+      doctor={selectedDoctor}
+      key={selectedDoctor?.id}
       />
     </>
   );
