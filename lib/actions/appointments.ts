@@ -108,3 +108,76 @@ export async function getUserAppointments(){
   }
 
 }
+
+export async function getBookedTimeSlots(doctorId:string,date:string){
+  try {
+    const appointment= await prisma.appointment.findMany({
+      where:{
+        doctorId,
+        date:new Date(date),
+        status:{
+          in:["CONFIRMED","COMPLETED"],
+          
+        }
+      },
+      select:{
+        time:true
+      }
+    });
+    return appointment.map((appointment) => appointment.time)
+  } catch (error) {
+    console.log("Error fetching booked time",error);
+    return []
+  }
+}
+
+
+interface BookAppointmentInput {
+  doctorId:string;
+  date:string;
+  time:string;
+  reason?:string
+}
+export async function bookAppointment(input:BookAppointmentInput){
+  try {
+    const {userId}=await auth();
+    if(!userId) throw new Error("You must be logged in to book an appointment");
+    if(!input.date || !input.doctorId || !input.time) throw new Error("Doctor, date, and time are required")
+
+    const user=await prisma.user.findUnique({
+      where:{
+        clerkId:userId
+      }
+    });
+    if(!user) throw new Error("User not found. Please ensure your account is properly set up.")
+    const appointment=await prisma.appointment.create({
+  data:{
+    userId:user.id,
+    doctorId:input.doctorId,
+    date:new Date(input.date),
+    time:input.time,
+    reason:input.reason || "General consultation",
+    status:"CONFIRMED"
+  },
+  include:{
+    user:{
+      select:{
+        firstName:true,
+        lastName:true,
+        email:true
+      }
+    },
+    doctor:{
+      select:{
+        name:true,imageUrl:true
+      }
+    }
+  },
+  
+  });
+  return transformAppointment(appointment)
+  } catch (error) {
+    console.error("Error booking appointment",error);
+    throw new Error("Failed to book appointment, Please try again later.  ")
+  }
+}
