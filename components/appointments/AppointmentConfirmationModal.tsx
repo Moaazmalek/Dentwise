@@ -1,3 +1,4 @@
+
 import {
   Dialog,
   DialogContent,
@@ -6,7 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { CheckCircleIcon, MailIcon, CalendarIcon, ClockIcon, UserIcon } from "lucide-react";
+import { MailIcon, CalendarIcon, ClockIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,13 +29,17 @@ export function AppointmentConfirmationModal({
 }: AppointmentConfirmationModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
+      {/* Removed sm:max-w-md to potentially allow the dialog to shrink more horizontally if content allows, but kept for safety. */}
       <DialogContent className="sm:max-w-md">
-        <DialogHeader className="text-center space-y-4">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+        <DialogHeader className="text-center space-y-2">
+          {/* Reduced vertical spacing in the header */}
+          
+          {/* Removed the large CheckCircleIcon container to save vertical space */}
+          {/* <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
             <CheckCircleIcon className="h-8 w-8 text-primary" />
-          </div>
+          </div> */}
 
-          <DialogTitle className="text-xl font-semibold text-center">
+          <DialogTitle className="text-xl font-semibold text-center pt-4">
             Appointment Confirmed!
           </DialogTitle>
 
@@ -43,15 +48,16 @@ export function AppointmentConfirmationModal({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-6">
+        <div className="space-y-4">
           {/* Email Notification Section */}
-          <div className="flex flex-col items-center space-y-3">
+          <div className="flex flex-col items-center space-y-2">
+            {/* Reduced image size from 120x120 to 80x80 */}
             <div className="relative">
               <Image
                 src="/email-sent.png"
                 alt="Email sent"
-                width={120}
-                height={120}
+                width={80}
+                height={80}
                 className="mx-auto"
               />
             </div>
@@ -69,10 +75,12 @@ export function AppointmentConfirmationModal({
 
           {/* Appointment Summary */}
           {appointmentDetails && (
-            <div className="bg-muted/30 rounded-lg p-4 space-y-3">
-              <h4 className="font-medium text-sm text-center mb-3">Quick Summary</h4>
+            <div className="bg-muted/30 rounded-lg p-3 space-y-2">
+              {/* Reduced padding and spacing */}
+              <h4 className="font-medium text-sm text-center mb-2">Quick Summary</h4>
 
-              <div className="space-y-2">
+              <div className="space-y-1">
+                {/* Reduced spacing */}
                 <div className="flex items-center gap-3 text-sm">
                   <UserIcon className="h-4 w-4 text-muted-foreground" />
                   <span className="font-medium">{appointmentDetails.doctorName}</span>
@@ -92,7 +100,8 @@ export function AppointmentConfirmationModal({
           )}
 
           {/* Action Buttons */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2">
+            {/* Reduced gap */}
             <Link href="/appointments" className="w-full">
               <Button className="w-full" onClick={() => onOpenChange(false)}>
                 View My Appointments
@@ -104,7 +113,7 @@ export function AppointmentConfirmationModal({
             </Button>
           </div>
 
-          {/* Additional Info */}
+         {/*  Removed the "Additional Info" section entirely to save maximum space */}
           <div className="text-center text-xs text-muted-foreground border-t pt-4">
             <p>
               Please arrive 15 minutes early for your appointment.
