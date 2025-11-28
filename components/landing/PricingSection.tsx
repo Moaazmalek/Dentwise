@@ -4,7 +4,7 @@ import { CheckCircleIcon } from "lucide-react";
 
 function PricingSection() {
   return (
-    <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-background via-muted/3 to-background">
+    <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-background via-muted/3 to-background" id="pricing-section">
       {/* Grid Background Pattern */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/5 to-primary/5">
@@ -49,11 +49,11 @@ function PricingSection() {
                   </div>
                   <p className="text-muted-foreground">Essential dental appointment booking</p>
                 </div>
-                <SignUpButton mode="modal">
+                {/* <SignUpButton mode="modal"> */}
                   <Button className="w-full py-3 bg-gradient-to-r from-muted to-muted/80 text-foreground rounded-xl font-semibold">
                     Get Started Free
                   </Button>
-                </SignUpButton>
+                {/* </SignUpButton> */}
 
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">

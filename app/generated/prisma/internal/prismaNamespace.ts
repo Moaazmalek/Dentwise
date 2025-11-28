@@ -689,7 +689,7 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const DoctorScalarFieldEnum = {
   id: 'id',
-  clerkId: 'clerkId',
+  name: 'name',
   email: 'email',
   phone: 'phone',
   speciality: 'speciality',
