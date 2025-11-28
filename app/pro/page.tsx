@@ -62,13 +62,30 @@ const ProPage = async () => {
               include secure access and bank-level encryption.
             </p>
           </div>
-          <PricingTable
-            appearance={{
-              variables: {
-                colorPrimary: "#3b82f6",
-              },
-            }}
-          />
+          <div className="relative">
+  {/* Overlay message */}
+  <div className="
+    absolute inset-0 z-20 
+    flex items-center justify-center 
+    bg-black/60 backdrop-blur-sm
+    text-white font-semibold text-xl
+    rounded-xl
+  ">
+    Subscription will be added soon
+  </div>
+
+  {/* Disable clicks but keep table visible */}
+  <div className="pointer-events-none">
+    <PricingTable
+      appearance={{
+        variables: {
+          colorPrimary: "#3b82f6",
+        },
+      }}
+    />
+  </div>
+</div>
+
         </div>
       </div>
     </>

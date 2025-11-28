@@ -14,8 +14,8 @@ const Header = () => {
           <span className='font-semibold text-lg'>DentWise</span>
         </Link>
         <div className="hidden md:flex items-center gap-8">
-          <a href='#' className='text-muted-foreground hover:text-foreground'>How it Works </a>
-          <a href='#' className='text-muted-foreground hover:text-foreground'>Pricing </a>
+          <a href='#how-it-works' className='text-muted-foreground hover:text-foreground'>How it Works </a>
+          <a href='#pricing-section' className='text-muted-foreground hover:text-foreground'>Pricing </a>
           <a href='#' className='text-muted-foreground hover:text-foreground'>About </a>
         </div>
        <SignedOut>

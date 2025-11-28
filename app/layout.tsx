@@ -33,7 +33,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
       >
-        <UserSync/>
+        {/**Done in the home page */}
+        {/* <UserSync/> */}
         <Toaster />
         {children}
       </body>

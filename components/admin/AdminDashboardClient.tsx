@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { useUser } from "@clerk/nextjs"
@@ -8,6 +9,7 @@ import LoadingUI from "../global/LoadingUi";
 import { useGetAppointments } from "@/hooks/use-appointments";
 import AdminStats from "./AdminStats";
 import DoctorsManagement from "./DoctorsManagement";
+import RecentAppointments from "./RecentAppointments";
 
 const AdminDashboardClient = () => {
     //get doctors, get appointments
@@ -19,7 +21,7 @@ const AdminDashboardClient = () => {
         totalDoctors:doctors.length,
         activeDoctors:doctors.filter((doc) => doc.isActive).length,
         totalAppointments:appointments.length,
-        completedAppointments:appointments.filter((app) => app.status==="COMPLETED").length,
+        completedAppointments:appointments.filter((app:any) => app.status==="COMPLETED").length,
 
          
     }
@@ -64,6 +66,7 @@ const AdminDashboardClient = () => {
               completedAppointments={stats.completedAppointments}
               />
               <DoctorsManagement />
+              <RecentAppointments/>
 
         </div>
     </div>

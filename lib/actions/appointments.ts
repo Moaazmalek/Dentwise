@@ -2,6 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import prisma from "../prisma";
+import { AppointmentStatus } from "@/app/generated/prisma/enums";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function transformAppointment(appointment: any) {
@@ -35,7 +36,7 @@ export async function getAppointments() {
         createdAt: "desc",
       },
     });
-    return appointments;
+    return appointments.map(transformAppointment)
   } catch (error) {
     throw new Error("Failed fetching appointments");
   }
@@ -180,4 +181,25 @@ export async function bookAppointment(input:BookAppointmentInput){
     console.error("Error booking appointment",error);
     throw new Error("Failed to book appointment, Please try again later.  ")
   }
+}
+
+export async function updateAppointmentStatus(input:{
+  id:string,
+  status:AppointmentStatus
+}){
+ try {
+  const appointment= await prisma.appointment.update({
+    where:{
+      id:input.id
+    },
+    data:{
+      status:input.status
+    }
+  })
+  return appointment;
+  
+ } catch (error) {
+  console.error("Error updating appointment:",error)
+  throw new Error("Failed to update uppointment")
+ }
 }
