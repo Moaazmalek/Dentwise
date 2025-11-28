@@ -15,7 +15,7 @@ export default async function Home() {
   const user=await currentUser();
   await syncUser();
 
-  if(user) redirect("/dashboard");
+  // if(user) redirect("/dashboard");
 
   return (
     <div className='min-h-screen bg-background '>
