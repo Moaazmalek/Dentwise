@@ -134,7 +134,6 @@ export async function getAvailableDoctors() {
       },
       orderBy: { name: "asc" },
     });
-console.log("DOCTORS",doctors)
     return doctors.map((doctor) => ({
       ...doctor,
       appointmentCount: doctor._count.appointments,
