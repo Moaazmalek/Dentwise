@@ -3,8 +3,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
+import { currentUser } from '@clerk/nextjs/server'
 
-const Header = () => {
+const Header = async () => {
+  const user=await currentUser();
   return (
     <nav className=' fixed inset-0 z-50 px-6 py-2 border-b border-border/50 bg-background/80 backdrop-blur-md h-16'>
       <div className="max-w-6xl mx-auto flex justify-between items-center">
@@ -17,6 +19,7 @@ const Header = () => {
           <a href='#how-it-works' className='text-muted-foreground hover:text-foreground'>How it Works </a>
           <a href='#pricing-section' className='text-muted-foreground hover:text-foreground'>Pricing </a>
           <a href='#' className='text-muted-foreground hover:text-foreground'>About </a>
+         {user &&  <Link href={"/dashboard"} className='text-muted-foreground hover:text-foreground'>Dashboard</Link>}
         </div>
        <SignedOut>
          <div className="flex items-center gap-3">

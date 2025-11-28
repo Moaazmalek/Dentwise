@@ -1,7 +1,7 @@
 "use client";
 
 import { UserButton, useUser } from "@clerk/nextjs";
-import { CalendarIcon, CrownIcon, HomeIcon, MicIcon } from "lucide-react";
+import { CalendarIcon, CrownIcon, HomeIcon, MicIcon, UserStar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,6 +9,12 @@ import { usePathname } from "next/navigation";
 function Navbar() {
   const { user } = useUser();
   const pathname = usePathname();
+
+  const adminEmail=process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+    const userEmail=user?.emailAddresses[0]?.emailAddress
+    const isAdmin=userEmail===adminEmail;
+    console.log(isAdmin)
+    
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-2 border-b border-border/50 bg-background/80 backdrop-blur-md h-16">
@@ -41,7 +47,18 @@ function Navbar() {
               <CalendarIcon className="w-4 h-4" />
               <span className="hidden md:inline">Appointments</span>
             </Link>
-
+            {isAdmin && (
+              <Link
+              href="/admin"
+              className={`flex items-center gap-2 transition-colors hover:text-foreground ${
+                  pathname === "/admin" ? "text-foreground" : "text-muted-foreground"
+                }`}
+              >
+                <UserStar className="w-4 h-4" />
+                <span className="hidden md:inline">Admin</span>
+              </Link>
+            )}
+                
             <Link
               href="/voice"
               className={`flex items-center gap-2 transition-colors hover:text-foreground ${
