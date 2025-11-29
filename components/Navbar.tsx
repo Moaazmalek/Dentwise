@@ -5,15 +5,29 @@ import { CalendarIcon, CrownIcon, HomeIcon, MicIcon, UserStar } from "lucide-rea
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 function Navbar() {
   const { user } = useUser();
   const pathname = usePathname();
 
-  const adminEmail=process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-    const userEmail=user?.emailAddresses[0]?.emailAddress
-    const isAdmin=userEmail===adminEmail;
-    console.log(isAdmin)
+  const [isAdmin, setIsAdmin] = useState(false);
+
+
+  useEffect(() => {
+    if(user){
+      fetch("/api/admin-status")
+      .then((res) => res.json())
+      .then((data) => {
+        setIsAdmin(data.isAdmin);
+      })
+      .catch(error => {
+        console.log("Failed to fetch admin status:",error)
+      })
+    }
+  }, [user])
+
+
     
 
   return (
@@ -47,8 +61,8 @@ function Navbar() {
               <CalendarIcon className="w-4 h-4" />
               <span className="hidden md:inline">Appointments</span>
             </Link>
-            {isAdmin && (
-              <Link
+           {isAdmin && (
+             <Link
               href="/admin"
               className={`flex items-center gap-2 transition-colors hover:text-foreground ${
                   pathname === "/admin" ? "text-foreground" : "text-muted-foreground"
@@ -56,8 +70,10 @@ function Navbar() {
               >
                 <UserStar className="w-4 h-4" />
                 <span className="hidden md:inline">Admin</span>
-              </Link>
-            )}
+              </Link> 
+           )}
+              
+            
                 
             <Link
               href="/voice"
