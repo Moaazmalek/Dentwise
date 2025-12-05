@@ -12,6 +12,7 @@ import {
 
 export default function MobileNav({ isAdmin }: { isAdmin: boolean }) {
   const pathname = usePathname();
+  if(pathname==="/") return null;
 
   const links = [
     {
