@@ -249,7 +249,6 @@ function VapiWidget() {
         </div>
       )}
 
-      CALL CONTROLS
       <div className="w-full flex justify-center gap-4">
        <Button
           className={`w-44 text-xl rounded-3xl ${
