@@ -6,6 +6,9 @@ import {ClerkProvider} from '@clerk/nextjs'
 import UserSync from "@/components/UserSync";
 import TanStackProvider from "@/components/providers/TanstackProvider";
 import { Toaster } from "sonner";
+import MobileNav from '@/components/MobileNav';
+import { currentUser } from '@clerk/nextjs/server';
+import Navbar from '@/components/Navbar';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,22 +25,28 @@ export const metadata: Metadata = {
   description: "Get instant dental advice through voice calls with our AI assistent. Available 24/7",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+    const user = await currentUser();
+    const isAdmin = user?.publicMetadata?.role === "admin";
   return (
     <TanStackProvider>
     <ClerkProvider>
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased dark `}
       >
         {/**Done in the home page */}
         {/* <UserSync/> */}
         <Toaster />
-        {children}
+        <Navbar isAdmin={isAdmin}/>
+       
+          {children}
+       
+        <MobileNav isAdmin={isAdmin} />
         <Analytics/>
       </body>
     </html>

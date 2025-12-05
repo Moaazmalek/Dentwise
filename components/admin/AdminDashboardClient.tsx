@@ -28,7 +28,7 @@ const AdminDashboardClient = () => {
     if(doctorsLoading || appointmentsLoading) return <LoadingUI/>
   return (
     <div className="min-h-screen bg-background">
-        <Navbar/>
+      
         <div className="max-w-7xl mx-auto px-6 py-8 pt-24">
             {/**Admin welcome section */}
             <div className="mb-12 flex items-center justify-between bg-gradient-to-br

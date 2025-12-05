@@ -1,45 +1,35 @@
 "use client";
-
 import { UserButton, useUser } from "@clerk/nextjs";
-import { CalendarIcon, CrownIcon, HomeIcon, MicIcon, UserStar } from "lucide-react";
+import {
+  CalendarIcon,
+  CrownIcon,
+  HomeIcon,
+  MicIcon,
+  UserStar,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-
-function Navbar() {
+function Navbar({ isAdmin }: { isAdmin: boolean }) {
   const { user } = useUser();
   const pathname = usePathname();
 
-  const [isAdmin, setIsAdmin] = useState(false);
-
-
-  useEffect(() => {
-    if(user){
-      fetch("/api/admin-status")
-      .then((res) => res.json())
-      .then((data) => {
-        setIsAdmin(data.isAdmin);
-      })
-      .catch(error => {
-        console.log("Failed to fetch admin status:",error)
-      })
-    }
-  }, [user])
-
-
-    
-
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-2 border-b border-border/50 bg-background/80 backdrop-blur-md h-16">
+    <nav className="sm:fixed hidde top-0 left-0 right-0 z-50 px-6 py-2 border-b border-border/50 bg-background/80 backdrop-blur-md h-16">
       <div className="max-w-7xl mx-auto flex justify-between items-center h-full">
         {/* LOGO */}
         <div className="flex items-center gap-8">
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <Image src="/tooth_logo.png" alt="DentWise Logo" width={32} height={32} className="w-11" />
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/tooth_logo.png"
+              alt="DentWise Logo"
+              width={32}
+              height={32}
+              className="w-11"
+            />
           </Link>
 
-          <div className="flex items-center gap-6">
+          <div className=" hidden md:flex items-center gap-6">
             <Link
               href="/dashboard"
               className={`flex items-center gap-2 transition-colors ${
@@ -55,30 +45,34 @@ function Navbar() {
             <Link
               href="/appointments"
               className={`flex items-center gap-2 transition-colors hover:text-foreground ${
-                pathname === "/appointments" ? "text-foreground" : "text-muted-foreground"
+                pathname === "/appointments"
+                  ? "text-foreground"
+                  : "text-muted-foreground"
               }`}
             >
               <CalendarIcon className="w-4 h-4" />
               <span className="hidden md:inline">Appointments</span>
             </Link>
-           {isAdmin && (
-             <Link
-              href="/admin"
-              className={`flex items-center gap-2 transition-colors hover:text-foreground ${
-                  pathname === "/admin" ? "text-foreground" : "text-muted-foreground"
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className={`flex items-center gap-2 transition-colors hover:text-foreground ${
+                  pathname === "/admin"
+                    ? "text-foreground"
+                    : "text-muted-foreground"
                 }`}
               >
                 <UserStar className="w-4 h-4" />
                 <span className="hidden md:inline">Admin</span>
-              </Link> 
-           )}
-              
-            
-                
+              </Link>
+            )}
+
             <Link
               href="/voice"
               className={`flex items-center gap-2 transition-colors hover:text-foreground ${
-                pathname === "/voice" ? "text-foreground" : "text-muted-foreground"
+                pathname === "/voice"
+                  ? "text-foreground"
+                  : "text-muted-foreground"
               }`}
             >
               <MicIcon className="w-4 h-4" />
@@ -87,7 +81,9 @@ function Navbar() {
             <Link
               href="/pro"
               className={`flex items-center gap-2 transition-colors hover:text-foreground ${
-                pathname === "/pro" ? "text-foreground" : "text-muted-foreground"
+                pathname === "/pro"
+                  ? "text-foreground"
+                  : "text-muted-foreground"
               }`}
             >
               <CrownIcon className="w-4 h-4" />

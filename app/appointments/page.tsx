@@ -50,7 +50,7 @@ const AppointmentsPage = () => {
             setBookedAppointment(appointment);
            
              try {
-            const emailResponse = await fetch("/api/send-appointment-email", {
+            const emailResponse = await fetch("/api/send-email", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -90,7 +90,7 @@ const AppointmentsPage = () => {
 
   return (
     <>
-      <Navbar />
+      
       <div className="max-w-7xl mx-auto px-6 pt-24 pb-4 overflow-x-hidden">
         {/**Header */}
         <div className="mb-8">

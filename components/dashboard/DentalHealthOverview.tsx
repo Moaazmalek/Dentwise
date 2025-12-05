@@ -11,7 +11,7 @@ async function DentalHealthOverview() {
   const user = await currentUser();
 
   return (
-    <Card className="lg:col-span-2">
+    <Card className="lg:col-span-2 w-full min-w-0">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <BrainIcon className="size-5 text-primary" />
@@ -44,8 +44,8 @@ async function DentalHealthOverview() {
           </div>
         </div>
 
-        <div className="mt-6 p-4 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl border border-primary/20">
-          <div className="flex items-start gap-3">
+        <div className="mt-6 p-4  bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl border border-primary/20">
+          <div className="flex  sm:flex-row flex-col items-center sm:items-start gap-3">
             <div className="size-10 bg-primary/20 rounded-lg flex items-center justify-center shrink-0">
               <MessageSquareIcon className="size-5 text-primary" />
             </div>

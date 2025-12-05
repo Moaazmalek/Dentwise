@@ -28,7 +28,7 @@ function BookingConfirmationStep({
   const appointmentType = APPOINTMENT_TYPES.find((t) => t.id === selectedType);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-20">
       {/* Header with back button */}
       <div className="flex items-center gap-4 mb-6">
         <Button variant="ghost" onClick={onBack}>
