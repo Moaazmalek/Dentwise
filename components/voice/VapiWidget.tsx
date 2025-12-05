@@ -260,7 +260,8 @@ function VapiWidget() {
               : "bg-primary hover:bg-primary/90"
           } text-white relative`}
           onClick={toggleCall}
-          disabled={connecting || callEnded}
+          // disabled={connecting || callEnded}
+          disabled={true}
         >
           {connecting && (
             <span className="absolute inset-0 rounded-full animate-ping bg-primary/50 opacity-75"></span>
